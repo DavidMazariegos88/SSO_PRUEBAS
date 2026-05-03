@@ -37,7 +37,13 @@
       </div>
 
       <div class="card">
-        <h3>Resumen gráfico (Administrador)</h3>
+        <div class="header-row">
+          <h3>Resumen gráfico (Administrador)</h3>
+          <label style="width: 200px; margin: 0;">
+            Altura gráfica: <span id="chartHeightValue">200</span>px
+            <input type="range" id="chartHeightSlider" min="100" max="400" value="200" style="width: 100%; cursor: pointer;" />
+          </label>
+        </div>
         <div class="charts-grid">
           <canvas id="conformidadChart"></canvas>
           <canvas id="equiposChart"></canvas>

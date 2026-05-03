@@ -14,6 +14,18 @@ const sucursalPdfSelect = document.getElementById("sucursalPdfSelect");
 let conformidadChart;
 let equiposChart;
 
+function changeChartHeight(height) {
+  document.documentElement.style.setProperty('--chart-height', height + 'px');
+  if (conformidadChart) conformidadChart.resize();
+  if (equiposChart) equiposChart.resize();
+  document.getElementById('chartHeightValue').textContent = height;
+}
+
+const chartHeightSlider = document.getElementById('chartHeightSlider');
+if (chartHeightSlider) {
+  chartHeightSlider.addEventListener('input', (e) => changeChartHeight(e.target.value));
+}
+
 function loadRecords() {
   return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
 }
@@ -103,24 +115,24 @@ function renderCharts(records) {
   if (equiposChart) equiposChart.destroy();
 
   conformidadChart = new Chart(document.getElementById("conformidadChart"), {
-    type: "bar",
+    type: "line",
     data: {
       labels,
       datasets: [
-        { label: "Conformidades", data: conformidades, backgroundColor: "#16a34a" },
-        { label: "No conformidades", data: noConformidades, backgroundColor: "#dc2626" }
+        { label: "Conformidades", data: conformidades, borderColor: "#16a34a", backgroundColor: "rgba(22, 163, 74, 0.1)", tension: 0.4 },
+        { label: "No conformidades", data: noConformidades, borderColor: "#dc2626", backgroundColor: "rgba(220, 38, 38, 0.1)", tension: 0.4 }
       ]
     },
     options: { responsive: true, plugins: { title: { display: true, text: "Conformidades por sucursal y total" } } }
   });
 
   equiposChart = new Chart(document.getElementById("equiposChart"), {
-    type: "bar",
+    type: "line",
     data: {
       labels,
       datasets: [
-        { label: "Extintores", data: extintores, backgroundColor: "#f59e0b" },
-        { label: "Botiquines", data: botiquines, backgroundColor: "#0284c7" }
+        { label: "Extintores", data: extintores, borderColor: "#f59e0b", backgroundColor: "rgba(245, 158, 11, 0.1)", tension: 0.4 },
+        { label: "Botiquines", data: botiquines, borderColor: "#0284c7", backgroundColor: "rgba(2, 132, 199, 0.1)", tension: 0.4 }
       ]
     },
     options: { responsive: true, plugins: { title: { display: true, text: "Extintores y Botiquines por sucursal y total" } } }

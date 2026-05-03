@@ -2,6 +2,7 @@
   --primary: #0f766e;
   --bg: #f8fafc;
   --danger: #b91c1c;
+  --chart-height: 200px;
 }
 
 * { box-sizing: border-box; }
@@ -67,6 +68,13 @@ button.danger { background: var(--danger); }
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
+  margin: 0 auto;
+}
+
+.charts-grid canvas {
+  max-height: var(--chart-height);
+  width: 100%;
+  height: auto;
 }
 
 .toolbar {
